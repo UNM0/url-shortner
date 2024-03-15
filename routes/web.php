@@ -1,20 +1,38 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UrlController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\TestMiddleware;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/login', function () {
-    return view('backend.partials.login');
-});
 
-Route::get('/', [UrlController::class, 'welcome'])->name('fast_url.welcome');
-Route::get('/links', [UrlController::class, 'links'])->name('fast_url.links');
-Route::get('/create', [UrlController::class, 'create'])->name('fast_url.create');
-Route::post('/create', [UrlController::class, 'store']);
-Route::get('/edit/{id}', [UrlController::class, 'edit'])->name('fast_url.edit');
-Route::post('/edit/{id}', [UrlController::class, 'update']);
-Route::post('/delete/{id}', [UrlController::class, 'destroy'])->name('fast_url.delete');
-Route::get('/{shortenedUrl}', [UrlController::class, 'redirect'])->name('fast_url.redirect');
+Route::group(['prefix' => '/admin'], function () {
+    // Routes for login and signup Authentication
+    Route::get('/signup', [AuthenticationController::class, 'signup_form'])->name('signup');
+    Route::post('/signup', [AuthenticationController::class, 'signup']);
+    Route::get('/login', [AuthenticationController::class, 'login_form'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'login']);
+    // Routes for home page
+    Route::get('/home', [UrlController::class, 'welcome'])->name('fast_url.welcome');
+    // Routes to create short url links
+    Route::get('/create', [UrlController::class, 'create'])->name('fast_url.create');
+    // Route to store the link in database
+    Route::post('/create', [UrlController::class, 'store']);
+    // Route to edit the specified url link
+    Route::get('/edit/{id}', [UrlController::class, 'edit'])->name('fast_url.edit');
+    // Route to update the edited url link
+    Route::post('/edit/{id}', [UrlController::class, 'update']);
+    // Route to delete the selected url link
+    Route::post('/delete/{id}', [UrlController::class, 'destroy'])->name('fast_url.destroy');
+    // Routes for view links
+    Route::get('/links', [UrlController::class, 'links'])->name('fast_url.links');
+    // Routes for view analytics
+    Route::get('/analyze/{id}', [UrlController::class, 'analyze'])->name('fast_url.analyze');
+    // Routes for contact page
+    Route::get('/contact', [ContactController::class, 'contact'])->name('fast_url.contact');
+    // Routes for user profiles settings
+    Route::get('/profile-setting', [ProfileController::class, 'index'])->name('fast_url.setting');
+
+    // Routes for short URLs
+    Route::get('/{shortenedUrl}', [UrlController::class, 'redirect'])->name('fast_url.redirect');
+});

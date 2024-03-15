@@ -1,32 +1,35 @@
 <div class=" m-14">
-    <h1 class="text-2xl font-bold pb-5">Your Links</h1>
+    <h1 class="pb-5 text-2xl font-bold">Your Links</h1>
     <div class="grid gap-20">
         @foreach ($urls as $url)
-            <div class="bg-gray-600  p-5 rounded-md h-50">
+            <div class="p-5 bg-gray-600 rounded-md h-50">
                 <div class="flex justify-end">
-                    <div class="flex gap-2 h-8">
-                        <div class="bg-gray-300 px-3 py-1 text-black rounded">
+                    <div class="flex h-8 gap-2">
+                        <div class="px-3 py-1 text-black bg-gray-300 rounded">
                             <h1><i class="fa-light fa-copy"></i> copy</h1>
                         </div>
-                        <div class="bg-gray-300 px-3 py-1 text-black rounded">
+                        <div class="px-3 py-1 text-black bg-gray-300 rounded">
                             <h1><a href=""></a><i class="fa-light fa-share"></i></h1>
                         </div>
                         <div class="">
-                            <button class="relative bg-gray-300 px-3 py-1 text-black rounded drop_down_btn"><i
+                            <button class="relative px-3 py-1 text-black bg-gray-300 rounded drop_down_btn"><i
                                     class="fa-solid fa-ellipsis"></i></button>
                             <div
-                                class="absolute drop_down_contents right-20 bg-gray-300 text-black text-left rounded mt-3 hidden px-10 py-3">
+                                class="absolute hidden px-10 py-3 mt-3 text-left text-black bg-gray-300 rounded drop_down_contents right-20">
                                 <a href="{{ $url->shortened_url }}" target="_blank"
-                                    class="w-full flex gap-1 justify-start text-left hover:text-gray-600"><i
-                                        class="fa-light fa-diamond-turn-right mt-1"></i> Redirect</a>
+                                    class="flex justify-start w-full gap-1 text-left hover:text-gray-600"><i
+                                        class="mt-1 fa-light fa-diamond-turn-right"></i> Redirect</a>
                                 <a href="{{ route('fast_url.edit', $url->id) }}"
-                                    class="w-full flex gap-1 justify-start text-left hover:text-gray-600 mt-2"><i
-                                        class="fa-light fa-pen-to-square mt-1"></i> Edit</a>
-                                <form action="{{ route('fast_url.delete', $url->id) }}" method="POST">
+                                    class="flex justify-start w-full gap-1 mt-2 text-left hover:text-gray-600"><i
+                                        class="mt-1 fa-light fa-pen-to-square"></i> Edit</a>
+                                <a href="{{ route('fast_url.analyze', $url->id) }}"
+                                    class="flex justify-start w-full gap-1 mt-2 text-left hover:text-gray-600"><i
+                                        class="mt-1 fa-light fa-chart-mixed"></i> Analytics</a>
+                                <form action="{{ route('fast_url.destroy', $url->id) }}" method="POST">
                                     @csrf
                                     <button
-                                        class="w-full flex gap-1 justify-start text-left text-red-500 hover:text-red-800 mt-2">
-                                        <i class="fa-light fa-trash mt-1"></i> Delete</button>
+                                        class="flex justify-start w-full gap-1 mt-2 text-left text-red-500 hover:text-red-800">
+                                        <i class="mt-1 fa-light fa-trash"></i> Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -34,12 +37,12 @@
                     </div>
                 </div>
 
-                <div class=" flex gap-8 w-10 ">
+                <div class="flex w-10 gap-8 ">
                     <div class="">
                         <img src="https://bit.ly/3T4X5GX" class="w-10 " alt="">
                     </div>
                     <div class="grid gap-1">
-                        <p class="text-white text-xl font-bold ">{{ $url->title }}</p>
+                        <p class="text-xl font-bold text-white ">{{ $url->title }}</p>
                         <a href="{{ $url->shortened_url }}" target="_blank"
                             class="text-blue-300 hover:underline">{{ $url->shortened_url }}</a>
                         <div class=" whitespace-nowrap">
@@ -49,7 +52,7 @@
                     </div>
                 </div>
                 <div class="mt-10">
-                    <p class="text-white text-sm"><i class="fa-sharp fa-light fa-calendar-days"></i>
+                    <p class="text-sm text-white"><i class="fa-sharp fa-light fa-calendar-days"></i>
                         {{ $url->created_at }}</p>
                 </div>
             </div>

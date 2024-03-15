@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Url extends Model
+class Visitor extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 
-    public function visitors(): HasMany
+    public function url(): belongsTo
     {
-        return $this->hasMany(Visitor::class);
+        return $this->belongsTo(Url::class);
     }
 }

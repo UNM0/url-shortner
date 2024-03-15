@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Url;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -10,6 +11,7 @@ class UrlController extends Controller
 {
     public function welcome()
     {
+        Auth()->logout();
         return view('backend.welcome');
     }
 
@@ -45,23 +47,35 @@ class UrlController extends Controller
         return redirect(route('fast_url.links'))->with('success', 'Your link has been shortened successfully');
     }
 
-    public function redirect($shortenedUrl)
+    public function redirect(Request $request, $shortenedUrl)
     {
         $url = Url::where('shortened_url', $shortenedUrl)->first();
-
+        // dd($request->userAgent());
         if ($url) {
-            return redirect($url->orignal_url);
-        } else {
-            abort(404);
+            Visitor::create([
+                'url_id' => $url->id,
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+
+            $url->increment('visitor_count');
+            return redirect()->away($url->orignal_url);
         }
+        abort(404);
     }
 
+    public function analyze($id)
+    {
+        $url = Url::findOrFail($id);
+        return view('backend.analytics', compact('url'));
+    }
     public function edit($id)
     {
         $url = Url::find($id);
 
         return view('backend.edit', compact('url'));
     }
+
 
     public function update(Request $request, $id)
     {

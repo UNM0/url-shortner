@@ -5,63 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <style>
-        ::-webkit-scrollbar {
-            -webkit-appearance: none;
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: #2d2e32;
-        }
-
-        ::-webkit-text-fill-color {
-            background: transparent;
-        }
-
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover,
-        input:-webkit-autofill:focus,
-        input:-webkit-autofill:active {
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: #ffffff;
-            transition: background-color 5000s ease-in-out 0s;
-            box-shadow: inset 0 0 20px 20px #23232329;
-        }
-    </style>
-    {{-- Font awesome --}}
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-solid.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-regular.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/sharp-light.css">
-    {{-- Fonts --}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    {{-- Tailwind CSS --}}
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+    @include('backend.partials.important_links')
     <title>@yield('pagetitle')</title>
 </head>
 
 <body
-    class="bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+    class="bg-gray-100 bg-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
     {{-- nav-bar --}}
     <div class="flex">
         <!-- Sidebar -->
-        <nav class="block bg-gray-800 text-white font-semibold py-3 h-screen w-[17%] sticky top-0">
-            <div class="grid gap-6 justify-items-center m-2">
-                <div class="w-full flex justify-start pl-8">
-                    <img src="https://logodownload.org/wp-content/uploads/2016/03/real-madrid-logo.png"
-                        class="h-30 w-10" alt="">
+        <nav class="side-bar block bg-gray-800 text-white font-semibold py-3 h-screen w-[17%] sticky top-0 ">
+            <div class="grid gap-6 m-2 justify-items-center">
+                <div class="flex justify-between w-full pl-8">
+                    <div class="">
+                        <img src="{{ asset('img/Bob-removebg-preview.png') }}" class="w-40" alt="">
+                    </div>
                 </div>
-                <a href="{{ route('fast_url.create') }}"><button
-                        class="bg-gray-600 text-white py-2 rounded-md w-56 hover:bg-gray-700"><i
-                            class="fa-light fa-plus-large"></i>
-                        Create new</button>
-                </a>
+                <div class="flex justify-center w-full">
+                    <a href="{{ route('fast_url.create') }}"><button
+                            class="w-full px-16 py-2 text-white bg-gray-600 rounded-md w-50 hover:bg-gray-700">
+                            <i class="fa-light fa-plus-large"></i>
+                            Create new</button>
+                    </a>
+                </div>
+
             </div>
             <h2 class=" border-[#a15ec5]"></h2><br>
-            <div class="links-container p-3 overflow-y-auto h-5/6">
-                <ul class="links text-md cursor-pointer">
+            <div class="p-3 overflow-y-auto links-container h-5/6">
+                <ul class="cursor-pointer links text-md">
                     <a href="{{ route('fast_url.welcome') }}">
                         <li
                             class="hover:bg-gray-700 py-2 pl-3  hover:rounded {{ Request::route()->getName() === 'fast_url.welcome' ? 'bg-gray-700 bg-hover mb-2 rounded border-l-8' : 'bg-gray-800' }}">
@@ -74,8 +45,16 @@
                             <i class="fa-light fa-link"></i><span class="pl-5">Links</span>
                         </li>
                     </a>
-                    <a href="#">
-                        <li class="hover:bg-gray-700 py-2 mt-3 pl-3 hover:rounded"> <i class="fa-light fa-gear"></i>
+                    <a href="{{ route('fast_url.contact') }}">
+                        <li
+                            class="hover:bg-gray-700 py-2 mt-3 pl-3 hover:rounded {{ Request::route()->getName() === 'fast_url.contact' ? 'bg-gray-700 bg-hover mb-2 mt-2 rounded border-l-8' : 'bg-gray-800' }}">
+                            <i class="fa-light fa-comment"></i><span class="pl-5">Contact us</span>
+                        </li>
+                    </a>
+                    <a href="{{ route('fast_url.setting') }}">
+                        <li
+                            class="py-2 {{ Request::route()->getName() === 'fast_url.setting' ? 'bg-gray-700 bg-hover mb-2 mt-2 rounded border-l-8' : 'bg-gray-800' }} pl-3 mt-3 hover:bg-gray-700 hover:rounded">
+                            <i class="fa-light fa-gear"></i>
                             <span class="pl-5">Settings</span>
                         </li>
                     </a>
@@ -84,24 +63,26 @@
         </nav>
 
         <!-- Main Content -->
-        <div class="flex-1 ml  text-white">
-            <div class="grid grid-cols-3 bg-gray-800 p-2 sticky top-0 z-10">
-                <div class="">
-                    <h2 class="text-xl font-bold p-2">Fast URL Shortner
-                    </h2>
+        <div class="flex-1 text-white ml">
+            <div class="sticky top-0 z-10 grid grid-cols-3 p-2 bg-gray-800">
+                <div class="flex gap-5 ">
+                    <button class="pl-5 text-xl open-btn ">
+                        <i class="fa-light fa-bars"></i>
+                    </button>
+                    <h2 class="p-2 text-xl font-bold">Fast URL Shortner</h2>
                 </div>
-                <form action="#" >
+                <form action="#">
                     @csrf
-                    <div class="mt-2 flex gap-5 w-3/4 border rounded-sm">
+                    <div class="flex w-3/4 gap-5 mt-2 border rounded-sm">
 
-                        <button class="text-center bg-gray-600 hover:bg-gray-700 px-4"><i
+                        <button class="px-4 text-center bg-gray-600 hover:bg-gray-700"><i
                                 class="fa-light fa-magnifying-glass"></i></button>
                         <input type="search" name="search_value" id="" placeholder="Search....."
-                            class="placeholder:text-white h-10 w-80 outline-none bg-transparent pr-4">
+                            class="h-10 pr-4 bg-transparent outline-none placeholder:text-white w-80">
                     </div>
                 </form>
 
-                <div class="mt-2 flex justify-end gap-2 mr-5 cursor-pointer">
+                <div class="flex justify-end gap-2 mt-2 mr-5 cursor-pointer">
                     <div class="text-lg">
                         <i class="fa-sharp fa-light fa-bell"></i>
                     </div>
@@ -122,5 +103,16 @@
 
     </div>
 </body>
+<script>
+    let openBtn = document.querySelector('.open-btn');
+    let sideBar = document.querySelector('.side-bar')
+    console.log(openBtn)
+    console.log(sideBar)
+    openBtn.addEventListener('click', function() {
+        sideBar.classList.toggle('hidden');
+        sideBar.style.transition = 'ease-in';
+        sideBar.style.transitionDuration = "0.7s";
+    });
+</script>
 
 </html>
