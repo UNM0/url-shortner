@@ -16,17 +16,22 @@
                             <span class="text-left text-red-400">{{ $message }}</span>
                         @enderror
                         <input type="email" name="email" placeholder=" Email" value="{{ old('email') }}"
-                            class="text-white @error('email')border-red-600 placeholder:text-red-400 @enderror h-10 bg-transparent border-2 rounded-md outline-none placeholder:text-white border-primary-color w-72">
+                            class="py-2 px-3 text-white @error('email')border-red-600 placeholder:text-red-400 @enderror h-10 bg-transparent border-2 rounded-md outline-none placeholder:text-white border-primary-color w-72">
                     </div>
                     <div class="grid">
                         @error('password')
                             <span class="text-left text-red-400">{{ $message }}</span>
                         @enderror
-                        <input type="text" name="password" placeholder=" Password"
-                            class="text-white @error('password')border-red-600 placeholder:text-red-400 @enderror h-10 bg-transparent border-2 rounded-md outline-none placeholder:text-white border-primary-color w-72">
+                        <input type="password" name="password" placeholder=" Password"
+                            class="py-2 px-3 text-white @error('password')border-red-600 placeholder:text-red-400 @enderror h-10 bg-transparent border-2 rounded-md outline-none placeholder:text-white border-primary-color w-72">
                     </div>
                     <button type="submit"
-                        class="h-10 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-900 w-72 ">Login</button>
+                        class="py-2 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-900 w-72 ">Login
+                    </button>
+                    <a href="{{ route('signup') }}"
+                        class="py-2 font-bold text-white bg-gray-800 rounded-md hover:bg-gray-900 w-72">
+                        Create new account
+                    </a>
                 </div>
             </div>
     </form>

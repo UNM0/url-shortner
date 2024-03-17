@@ -58,7 +58,17 @@
                             <span class="pl-5">Settings</span>
                         </li>
                     </a>
+
                 </ul>
+                <div class="py-2 pl-3 mt-16 ">
+                    <form action="{{ route('logout') }} " method="POST">
+                        @csrf
+                        <button type="submit" class="text-red-300 hover:text-red-400 hover:rounded"><i
+                                class="pr-2 fa-light fa-power-off"></i>Logout
+                        </button>
+                    </form>
+
+                </div>
             </div>
         </nav>
 
@@ -82,12 +92,12 @@
                     </div>
                 </form>
 
-                <div class="flex justify-end gap-2 mt-2 mr-5 cursor-pointer">
+                <div class="flex justify-end gap-5 mt-2 mr-5 cursor-pointer">
                     <div class="text-lg">
                         <i class="fa-sharp fa-light fa-bell"></i>
                     </div>
                     <div class="">
-                        <p>Hey, <span class="font-bold"> Nunam! </span>
+                        <p>Hey, <span class="font-bold"> {{ auth()->user()->name }} </span>
                         <h4>
                     </div>
                     <div class="">
@@ -110,8 +120,8 @@
     console.log(sideBar)
     openBtn.addEventListener('click', function() {
         sideBar.classList.toggle('hidden');
-        sideBar.style.transition = 'ease-in';
         sideBar.style.transitionDuration = "0.7s";
+        closeSideBar.style.transition = 'ease-in';
     });
 </script>
 

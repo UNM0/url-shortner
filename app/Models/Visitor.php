@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Visitor extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function url(): belongsTo

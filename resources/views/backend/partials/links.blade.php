@@ -37,13 +37,10 @@
                     </div>
                 </div>
 
-                <div class="flex w-10 gap-8 ">
-                    <div class="">
-                        <img src="https://bit.ly/3T4X5GX" class="w-10 " alt="">
-                    </div>
+                <div class="flex w-10 gap-8 pl-10">
                     <div class="grid gap-1">
                         <p class="text-xl font-bold text-white ">{{ $url->title }}</p>
-                        <a href="{{ $url->shortened_url }}" target="_blank"
+                        <a href="{{ $url->orignal_url }}" target="_blank"
                             class="text-blue-300 hover:underline">{{ $url->shortened_url }}</a>
                         <div class=" whitespace-nowrap">
                             <a href="{{ $url->orignal_url }}" target="_blank"
@@ -51,9 +48,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-10">
-                    <p class="text-sm text-white"><i class="fa-sharp fa-light fa-calendar-days"></i>
-                        {{ $url->created_at }}</p>
+                <div class="pl-10 mt-10">
+                    <p class="text-sm text-white"><i class="pr-3 fa-sharp fa-light fa-calendar-days"></i>
+                        {{ $url->created_at->diffForHumans() }}</p>
                 </div>
             </div>
         @endforeach

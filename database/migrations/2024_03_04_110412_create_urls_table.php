@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('visitor_count')->default(0);
             $table->string('title')->nullable();
             $table->string('orignal_url', 400);

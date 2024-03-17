@@ -1,5 +1,5 @@
 @extends('backend.layouts.app')
-@section('pagetitle', 'Fast URL Shortner')
+@section('pagetitle', 'Dashboard')
 @section('content')
     {{-- @dd(Session::all()) --}}
     @include('backend.partials.hero')
