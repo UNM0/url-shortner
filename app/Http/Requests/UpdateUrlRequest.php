@@ -25,13 +25,27 @@ class UpdateUrlRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method() != 'GET') {
+        // if ($this->method() != 'GET') {
+        //     return [
+        //         'title' => 'nullable|string',
+        //         'shortened_url' => 'required|string',
+        //     ];
+        // }
+        // return [];
+        if ($this->method == 'POST') {
             return [
                 'title' => 'nullable|string',
                 'shortened_url' => 'required|string',
             ];
         }
         return [];
+        // if ($this->method == 'GET') {
+        //     return [
+        //         'title' => 'nullable|string',
+        //         'shortened_url' => 'required|string',
+        //     ];
+        // }
+        // return [];
     }
     public function messages()
     {
