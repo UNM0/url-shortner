@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUrlRequest;
+use App\Http\Requests\UpdateUrlRequest;
 use App\Models\Url;
 use App\Models\User;
 use App\Models\Visitor;
@@ -39,12 +41,12 @@ class UrlController extends Controller
         return view('backend.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateUrlRequest $request)
     {
-        $request->validate([
-            'title' => 'nullable|string',
-            'orignal_url' => 'required|url',
-        ]);
+        // $request->validate([
+        //     'title' => 'nullable|string',
+        //     'orignal_url' => 'required|url',
+        // ]);
         $user = auth()->user()->id;
         $title = $request->input('title');
         $orignalUrl = $request->input('orignal_url');
@@ -94,33 +96,33 @@ class UrlController extends Controller
         return view('backend.analytics', compact('url'));
     }
 
-    public function edit($id)
+    public function edit(UpdateUrlRequest $request, $id)
     {
-        $user_id = auth()->id();
-        $query = Url::where('user_id', $user_id)->where('id', $id)->first();
-        // if (!$query) {
+        // $user_id = auth()->id();
+        // $query = Url::where('user_id', $user_id)->where('id', $id)->first();
+        // // if (!$query) {
+        // //     abort(401);
+        // // }
+        $url = Url::findOrFail($id);
+
+        // if ($url->id != auth()->id()) {
         //     abort(401);
         // }
-        $url = Url::find($id);
-
-        if ($url->id != auth()->id()) {
-            abort(401);
-        }
-        Log::info($url);
+        // Log::info($url);
 
         return view('backend.edit', compact('url'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUrlRequest $request, $id)
     {
-        $request->validate([
-            'title' => 'nullable|string',
-            'shortened_url' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'title' => 'nullable|string',
+        //     'shortened_url' => 'required|string',
+        // ]);
         $url = Url::findOrFail($id);
-        if ($url->id != auth()->id()) {
-            abort(401);
-        }
+        // if ($url->id != auth()->id()) {
+        //     abort(401);
+        // }
         $url->title = $request->input('title');
         $url->shortened_url = $request->input('shortened_url');
         $url->save();
@@ -137,23 +139,5 @@ class UrlController extends Controller
         $url->delete();
 
         return to_route('fast_url.links')->with('success', 'Edited successfully');
-    }
-
-    public function upload_page()
-    {
-        return view('backend.upload');
-    }
-
-    public function upload(Request $request)
-    {
-        // Log::info('file-upload');
-        $request->validate([
-            'file' => 'required|image',
-        ]);
-        // dd($request);
-        $path = $request->file('file')->store('images');
-
-        // dump($request);
-        return redirect()->back()->with('path', $path);
     }
 }
