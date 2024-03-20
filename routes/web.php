@@ -57,7 +57,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/contact', [ContactController::class, 'contact'])->name('fast_url.contact');
 
     // Routes for user profiles settings
-    Route::get('/profile-setting', [ProfileController::class, 'index'])->name('fast_url.setting');
+    Route::get('/profile-setting', [ProfileController::class, 'edit_profile'])->name('profile.setting');
+    Route::post('/profile-setting', [ProfileController::class, 'update_profile']);
+
+    // Routes for short URLs
+    Route::get('/{shortenedUrl}', [UrlController::class, 'redirect'])->name('fast_url.redirect');
 });
-// Routes for short URLs
-Route::get('/{shortenedUrl}', [UrlController::class, 'redirect'])->name('fast_url.redirect');

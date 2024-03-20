@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUrlRequest extends FormRequest
+class CreateLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->user() != null;
+        return true;
     }
 
     /**
@@ -21,19 +21,17 @@ class CreateUrlRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method == 'POST') {
-            return [
-                'title' => 'nullable|string',
-                'orignal_url' => 'required|string',
-            ];
-        }
-        return [];
+        return [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
     }
     public function messages()
     {
         return [
-            'orignal_url.required' => 'Please provide us with a Url to make it short for you',
-            'orignal_url.url' => 'The URL you have provided is not a valid URL, Please use a valid URL !',
+            'email.required' => ' Enter your email to login!',
+            'email.email' => 'Please enter a valid email!',
+            'password.required' => 'Please Enter your password to login!'
         ];
     }
 }

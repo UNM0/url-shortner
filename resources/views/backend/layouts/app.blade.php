@@ -14,22 +14,18 @@
     {{-- nav-bar --}}
     <div class="flex">
         <!-- Sidebar -->
-        <nav class="side-bar block bg-gray-800 text-white font-semibold py-3 h-screen w-[17%] sticky top-0 ">
-            <div class="grid gap-6 m-2 justify-items-center">
-                <div class="flex justify-between w-full pl-8">
-                    <div class="">
-                        <img src="{{ asset('img/Bob-removebg-preview.png') }}" class="w-40" alt="">
-                    </div>
-                </div>
-                <div class="flex justify-center w-full">
-                    <a href="{{ route('fast_url.create') }}"><button
-                            class="w-full px-16 py-2 text-white bg-gray-600 rounded-md w-50 hover:bg-gray-700">
-                            <i class="fa-light fa-plus-large"></i>
-                            Create new</button>
-                    </a>
-                </div>
-
+        <nav class="side-bar block bg-gray-800 text-white font-semibold py-3 h-screen w-[17%] sticky top-0 hidden">
+            <div class="flex justify-center w-full mb-5">
+                <img src="{{ asset('img/trimly1.png') }}" class="h-20" alt="">
             </div>
+            <div class="flex justify-center w-full">
+                <a href="{{ route('fast_url.create') }}"><button
+                        class="w-full px-16 py-2 text-white bg-gray-600 rounded-md w-50 hover:bg-gray-700">
+                        <i class="fa-light fa-plus-large"></i>
+                        Create new</button>
+                </a>
+            </div>
+
             <h2 class=" border-[#a15ec5]"></h2><br>
             <div class="p-3 overflow-y-auto links-container h-5/6">
                 <ul class="cursor-pointer links text-md">
@@ -51,11 +47,11 @@
                             <i class="fa-light fa-comment"></i><span class="pl-5">Contact us</span>
                         </li>
                     </a>
-                    <a href="{{ route('fast_url.setting') }}">
+                    <a href="{{ route('profile.setting') }}">
                         <li
-                            class="py-2 {{ Request::route()->getName() === 'fast_url.setting' ? 'bg-gray-700 bg-hover mb-2 mt-2 rounded border-l-8' : 'bg-gray-800' }} pl-3 mt-3 hover:bg-gray-700 hover:rounded">
+                            class="py-2 {{ Request::route()->getName() === 'profile.setting' ? 'bg-gray-700 bg-hover mb-2 mt-2 rounded border-l-8' : 'bg-gray-800' }} pl-3 mt-3 hover:bg-gray-700 hover:rounded">
                             <i class="fa-light fa-gear"></i>
-                            <span class="pl-5">Settings</span>
+                            <span class="pl-5">Profile settings</span>
                         </li>
                     </a>
 

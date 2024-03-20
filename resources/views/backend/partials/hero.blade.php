@@ -30,13 +30,13 @@
             <img src="{{ asset('flaticons/search-engine.png') }}" class="mb-4 h-80" alt="">
         </div>
         <div class="grid w-1/2 mt-20 text-xl text-left mr-14">
-            <h1 class="">An effective URL shortener simplifies long web addresses into concise links, making them
+            <h1 class="">Trimly, url shortner tool simplifies long web addresses into concise links, making them
                 easier to share on platforms with character limits. Additionally, it provides analytics tools to track
                 link engagement and performance.
             </h1>
             <a href="{{ route('fast_url.create') }}"><button
-                    class="w-56 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600"><i
-                        class="fa-light fa-plus-large"></i>
+                    class="w-56 py-2 text-white bg-gray-500 rounded-md hover:bg-gray-600">
+                    <i class="fa-light fa-glasses"></i>
                     Try now</button>
             </a>
         </div>

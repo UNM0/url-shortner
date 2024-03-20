@@ -16,37 +16,29 @@ class UrlController extends Controller
 {
     public function welcome()
     {
-        Log::info('User has visited welcome page');
+        // Log::info('User has visited welcome page');
         $user = User::find(auth()->user()->id);
-        Log::info($user);
+        // Log::info($user);
 
         return view('backend.welcome', compact('user'));
     }
 
     public function links()
     {
-        // $urls = auth()->user()->urls;
-        // $urls = auth()->user()->urls;
-        // $userId = (auth()->user()->id);
-        // $urls = Url::where('user_id', $userId)->get();
+
         $user = auth()->user();
-        $urls = $user->urls;
+        $urls = $user->urls()->latest()->get();
 
         return view('backend.view_links', compact('urls'));
     }
 
-    public function create()
+    public function create(CreateUrlRequest $request)
     {
-        // $user = User::find(auth()->user()->id);
         return view('backend.create');
     }
 
     public function store(CreateUrlRequest $request)
     {
-        // $request->validate([
-        //     'title' => 'nullable|string',
-        //     'orignal_url' => 'required|url',
-        // ]);
         $user = auth()->user()->id;
         $title = $request->input('title');
         $orignalUrl = $request->input('orignal_url');
@@ -65,10 +57,6 @@ class UrlController extends Controller
     public function redirect(Request $request, $shortenedUrl)
     {
         $url = Url::where('shortened_url', $shortenedUrl)->first();
-        dd($url);
-
-        // dd($request->userAgent());
-        // Log::error($url);
         if ($url) {
             Visitor::create([
                 'url_id' => $url->id,
@@ -78,17 +66,18 @@ class UrlController extends Controller
 
             $url->increment('visitor_count');
 
+
             return redirect()->away($url->orignal_url);
         }
         abort(404);
     }
 
-    public function analyze($id)
+    public function analyze(UpdateUrlRequest $request, $id)
     {
         $url = Url::findOrFail($id);
-        if ($url->id != auth()->id()) {
-            abort(401);
-        }
+        // if ($url->id != auth()->id()) {
+        //     abort(401);
+        // }
         // $user = User::find(auth()->user()->id);
         // $userId = User::find(auth()->user()->id);
         // $url = User::where('user_id', $userId)->get();

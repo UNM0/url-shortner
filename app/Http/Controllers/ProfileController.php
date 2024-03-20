@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function edit_profile()
     {
-        $user = User::find(auth()->user()->id);
+        return view('backend.settings');
+    }
 
-        return view('backend.settings', compact('user'));
+    public function update_profile(UpdateProfileRequest $request)
+    {
+        $user = auth()->user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->back()->with('status', 'Profile has been update successfully');
     }
 }
