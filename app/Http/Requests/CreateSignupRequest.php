@@ -28,6 +28,7 @@ class CreateSignupRequest extends FormRequest
             'password_confirmation' => 'required',
         ];
     }
+
     public function messages()
     {
         return [

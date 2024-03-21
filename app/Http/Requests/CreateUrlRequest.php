@@ -27,8 +27,10 @@ class CreateUrlRequest extends FormRequest
                 'orignal_url' => 'required|string',
             ];
         }
+
         return [];
     }
+
     public function messages()
     {
         return [

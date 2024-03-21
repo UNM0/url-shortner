@@ -22,18 +22,20 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         $user = auth()->user();
+
         return [
             'name' => 'required|string|max:80',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
         ];
     }
+
     public function messages()
     {
         return [
             'name.required' => 'You cannot leave the name field empty',
             'name.max:80' => 'Your name is too long please enter a short name',
             'email.required' => 'Please enter an email address',
-            'email.email' => 'Please enter a valid email address'
+            'email.email' => 'Please enter a valid email address',
         ];
     }
 }

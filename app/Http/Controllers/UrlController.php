@@ -45,12 +45,14 @@ class UrlController extends Controller
 
         return to_route('fast_url.links')->with('status', 'Your link has been shortened successfully');
     }
+
     public function links()
     {
 
         $user_id = auth()->id();
         $urls = Url::where('user_id', $user_id)->paginate(3);
         $count = Url::where('user_id', $user_id)->count();
+
         return view('backend.view_links', compact('urls', 'count'));
     }
 
@@ -65,7 +67,6 @@ class UrlController extends Controller
             ]);
 
             $url->increment('visitor_count');
-
 
             return redirect()->away($url->orignal_url);
         }

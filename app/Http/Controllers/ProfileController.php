@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
-use Illuminate\Http\Request;
-use App\Models\User;
 
 class ProfileController extends Controller
 {

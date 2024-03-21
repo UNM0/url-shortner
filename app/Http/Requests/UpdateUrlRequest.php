@@ -38,6 +38,7 @@ class UpdateUrlRequest extends FormRequest
                 'shortened_url' => 'required|string',
             ];
         }
+
         return [];
         // if ($this->method == 'GET') {
         //     return [
@@ -47,6 +48,7 @@ class UpdateUrlRequest extends FormRequest
         // }
         // return [];
     }
+
     public function messages()
     {
         return [

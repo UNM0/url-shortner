@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -11,6 +11,7 @@ class FileController extends Controller
     {
         return view('backend.upload');
     }
+
     public function upload(Request $request)
     {
         validator(request()->all(), ['file' => 'required|image'])->validate();
@@ -19,6 +20,7 @@ class FileController extends Controller
         // ]);
         $path = $request->file('file')->store('public');
         $qualified_url = Storage::url($path);
+
         // dd($path, $qualified_url);
         return redirect()->back()->with('path', $path);
     }
