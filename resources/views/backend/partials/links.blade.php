@@ -1,6 +1,8 @@
 <div class=" m-14">
-    <h1 class="pb-5 text-2xl font-bold">Your Links</h1>
+    <h1 class="pb-5 text-2xl font-bold">Your Links </h1>
+    <h1 class="pb-5 text-xl font-bold text-gray-400">Total URL {{ $count }} </h1>
     <div class="grid gap-20">
+
         @if ($urls != '')
             @foreach ($urls as $url)
                 <div class="p-5 bg-gray-600 rounded-md h-50">
@@ -37,7 +39,9 @@
 
                         </div>
                     </div>
-
+                    <div class="">
+                        {{ $loop->iteration }}
+                    </div>
                     <div class="flex w-10 gap-8 pl-10">
                         <div class="grid gap-1">
                             <p class="text-xl font-bold text-white ">{{ $url->title }}</p>
@@ -55,6 +59,7 @@
                     </div>
                 </div>
             @endforeach
+            {{ $urls->links() }}
         @else
             <div class="grid justify-center gap-10">
                 <span class="text-xl text-red-400">You haven't created a link yet !</span>

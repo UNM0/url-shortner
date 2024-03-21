@@ -16,20 +16,12 @@ class UrlController extends Controller
 {
     public function welcome()
     {
+        // abort(404);
         // Log::info('User has visited welcome page');
         $user = User::find(auth()->user()->id);
         // Log::info($user);
 
         return view('backend.welcome', compact('user'));
-    }
-
-    public function links()
-    {
-
-        $user = auth()->user();
-        $urls = $user->urls()->latest()->get();
-
-        return view('backend.view_links', compact('urls'));
     }
 
     public function create(CreateUrlRequest $request)
@@ -51,7 +43,15 @@ class UrlController extends Controller
         $url->shortened_url = $shortenedUrl;
         $url->save();
 
-        return to_route('fast_url.links')->with('success', 'Your link has been shortened successfully');
+        return to_route('fast_url.links')->with('status', 'Your link has been shortened successfully');
+    }
+    public function links()
+    {
+
+        $user_id = auth()->id();
+        $urls = Url::where('user_id', $user_id)->paginate(3);
+        $count = Url::where('user_id', $user_id)->count();
+        return view('backend.view_links', compact('urls', 'count'));
     }
 
     public function redirect(Request $request, $shortenedUrl)
@@ -116,7 +116,7 @@ class UrlController extends Controller
         $url->shortened_url = $request->input('shortened_url');
         $url->save();
 
-        return to_route('fast_url.links')->with('success', 'Edited successfully');
+        return to_route('fast_url.links')->with('status', 'Edited successfully');
     }
 
     public function destroy($id)
@@ -127,6 +127,6 @@ class UrlController extends Controller
         }
         $url->delete();
 
-        return to_route('fast_url.links')->with('success', 'Edited successfully');
+        return to_route('fast_url.links')->with('status', 'Edited successfully');
     }
 }

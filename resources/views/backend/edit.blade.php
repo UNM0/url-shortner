@@ -17,7 +17,7 @@
                         <input type="text" name="shortened_url" value="{{ $url->shortened_url }}"
                             class="w-1/2 h-10 px-3 py-3 mt-2 mb-8 bg-transparent border border-gray-400 rounded outline-none @error('shortened_url') border-red-300
                         @enderror"
-                            placeholder=" https:://example.com/my-url/my-long-url">
+                            placeholder=" myshorturl">
                         <label for="url" class="text-white">Title (optional)</label>
                         <input type="text" name="title"
                             class="w-1/2 h-10 px-3 py-3 mt-2 bg-transparent border border-gray-400 rounded outline-none"
