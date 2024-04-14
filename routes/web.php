@@ -3,9 +3,20 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\HttpController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UrlController;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+
+Route::get('/datetime', function () {
+    $date = new Carbon('first day of september 2001');
+    $manipulated_date = $date->diffForHumans();
+    // $date->today();
+    // $date = Carbon::today();
+    // $date = Carbon::yesterday();
+    return $manipulated_date;
+});
 
 Route::get('/signup', [AuthenticationController::class, 'signup_form'])->name('signup');
 
@@ -56,9 +67,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     // Routes for contact page
     Route::get('/contact', [ContactController::class, 'contact'])->name('fast_url.contact');
 
-    // Routes for user profiles settings
+    // Routes for user profile settings
     Route::get('/profile-setting', [ProfileController::class, 'edit_profile'])->name('profile.setting');
+
     Route::post('/profile-setting', [ProfileController::class, 'update_profile']);
+
+    //Route to test http client
+    Route::get('/http', [HttpController::class, 'index']);
+    Route::get('/post', [HttpController::class, 'post_request']);
 
     // Routes for short URLs
     Route::get('/{shortenedUrl}', [UrlController::class, 'redirect'])->name('fast_url.redirect');

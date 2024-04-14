@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class CreateUrlRequest extends FormRequest
 {
@@ -21,10 +23,10 @@ class CreateUrlRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method == 'POST') {
+        if ($this->method() == 'POST') {
             return [
                 'title' => 'nullable|string',
-                'orignal_url' => 'required|string',
+                'orignal_url' => 'required|string|url',
             ];
         }
 

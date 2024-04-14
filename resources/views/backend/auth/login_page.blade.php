@@ -22,7 +22,7 @@
                         @error('password')
                             <span class="mb-2 text-left text-red-400">{{ $message }}</span>
                         @enderror
-                        <input type="password" name="password" placeholder=" Password"
+                        <input type="text" name="password" placeholder=" Password"
                             class="py-2 px-3 text-white @error('password')border-red-600 placeholder:text-red-400 @enderror h-10 bg-transparent border-2 border-gray-400 rounded-md outline-none placeholder:text-white border-primary-color w-72">
                     </div>
                     <button type="submit"

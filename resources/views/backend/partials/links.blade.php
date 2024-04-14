@@ -2,7 +2,6 @@
     <h1 class="pb-5 text-2xl font-bold">Your Links </h1>
     <h1 class="pb-5 text-xl font-bold text-gray-400">Total URL {{ $count }} </h1>
     <div class="grid gap-20">
-
         @if ($urls != '')
             @foreach ($urls as $url)
                 <div class="p-5 bg-gray-600 rounded-md h-50">
@@ -28,7 +27,7 @@
                                     <a href="{{ route('fast_url.analyze', $url->id) }}"
                                         class="flex justify-start w-full gap-1 mt-2 text-left hover:text-gray-600"><i
                                             class="mt-1 fa-light fa-chart-mixed"></i> Analytics</a>
-                                    <form action="{{ route('fast_url.destroy', $url->id) }}" method="POST">
+                                    <form action="{{ route('fast_url.destroy', [$url->id]) }}" method="POST">
                                         @csrf
                                         <button
                                             class="flex justify-start w-full gap-1 mt-2 text-left text-red-500 hover:text-red-800">
@@ -60,6 +59,10 @@
                 </div>
             @endforeach
             {{ $urls->links() }}
+
+            <h1 class="text-center text-red-500">
+                You've reached the end of your links
+            </h1>
         @else
             <div class="grid justify-center gap-10">
                 <span class="text-xl text-red-400">You haven't created a link yet !</span>
@@ -72,9 +75,7 @@
                 </div>
             </div>
         @endif
-
-
-    </div>
+    </div><br><br><br>
 </div>
 
 <script>

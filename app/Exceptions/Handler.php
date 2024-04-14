@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Client\ConnectionException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -24,7 +26,12 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+            Log::info('Connection exception');
+        });
+        $this->renderable(function (ConnectionException $e) {
+            // Log::info('Reportable');
+            // return "Hello world!";
+            abort(404);
         });
     }
 }

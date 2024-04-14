@@ -1,1 +1,5 @@
-this is 404 page
+@extends('errors::minimal')
+@section('content')
+@section('title', __('Page Not found'))
+@section('code', '404')
+@section('message', __('Page not found please visit a proper route'))
